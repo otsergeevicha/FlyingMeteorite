@@ -29,7 +29,7 @@ namespace Infrastructure.GameAI.StateMachine.States
 
         private void EnterLoadLevel()
         {
-            _stateMachine.Enter<LoadLevelState, string>("Main");
+            _stateMachine.Enter<LoadLevelState, string>(Constants.MainScene);
         }
 
         public void Exit()

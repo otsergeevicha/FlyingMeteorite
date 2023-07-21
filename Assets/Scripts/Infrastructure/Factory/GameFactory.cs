@@ -16,7 +16,7 @@ namespace Infrastructure.Factory
         public GameObject CreateHero() => 
             _assetsProvider.InstantiateEntity(Constants.PlayerPath);
 
-        public void CreateGud() => 
+        public void CreateHud() => 
             _assetsProvider.InstantiateEntity(Constants.HudPath);
     }
 }

@@ -33,7 +33,7 @@ namespace Infrastructure.GameAI.StateMachine.States
         private void OnLoaded()
         {
             GameObject player = _gameFactory.CreateHero();
-            _gameFactory.CreateGud();
+            _gameFactory.CreateHud();
 
             _stateMachine.Enter<GameLoopState>();
         }
