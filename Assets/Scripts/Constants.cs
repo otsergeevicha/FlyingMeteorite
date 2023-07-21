@@ -5,6 +5,7 @@
     public const string MainScene = "Main";
     public const string PlayerPath = "Player/Hero";
     public const string HudPath = "Canvases/Hud";
-    public const float SpeedHero = 0f;
-    public const float TapForce = 10f;
+    public const string CameraPath = "Camera/CameraTracker";
+    public const float SpeedHero = 3f;
+    public const float TapForce = 250f;
 }

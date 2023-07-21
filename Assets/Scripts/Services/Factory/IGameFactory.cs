@@ -1,11 +1,13 @@
-﻿using Services.ServiceLocator;
+﻿using PlayerLogic;
+using Services.ServiceLocator;
 using UnityEngine;
 
 namespace Services.Factory
 {
     public interface IGameFactory : IService
     {
-        GameObject CreateHero();
+        Hero CreateHero();
         void CreateHud();
+        Camera CreateCamera();
     }
 }

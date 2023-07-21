@@ -1,5 +1,7 @@
-﻿using Infrastructure.LoadingLogic;
+﻿using CameraLogic;
+using Infrastructure.LoadingLogic;
 using Infrastructure.LoadingLogic.ScreenLoading;
+using PlayerLogic;
 using Services.Factory;
 using Services.StateMachine;
 using UnityEngine;
@@ -12,7 +14,7 @@ namespace Infrastructure.GameAI.StateMachine.States
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
-        
+
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
         {
             _stateMachine = stateMachine;
@@ -32,7 +34,9 @@ namespace Infrastructure.GameAI.StateMachine.States
 
         private void OnLoaded()
         {
-            GameObject player = _gameFactory.CreateHero();
+            Camera camera = _gameFactory.CreateCamera();
+            Hero hero = _gameFactory.CreateHero();
+            camera.GetComponent<HeroTracker>().Construct(hero);
             _gameFactory.CreateHud();
 
             _stateMachine.Enter<GameLoopState>();

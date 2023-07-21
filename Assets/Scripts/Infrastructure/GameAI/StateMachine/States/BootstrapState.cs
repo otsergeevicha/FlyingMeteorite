@@ -22,15 +22,11 @@ namespace Infrastructure.GameAI.StateMachine.States
             RegisterServices();
         }
 
-        public void Enter()
-        {
+        public void Enter() => 
             _sceneLoader.LoadScene(Constants.InitialScene, EnterLoadLevel);
-        }
 
-        private void EnterLoadLevel()
-        {
+        private void EnterLoadLevel() => 
             _stateMachine.Enter<LoadLevelState, string>(Constants.MainScene);
-        }
 
         public void Exit()
         {
@@ -38,9 +34,9 @@ namespace Infrastructure.GameAI.StateMachine.States
 
         private void RegisterServices()
         {
-            AllServices.Container.RegisterSingle<IInputService>(new InputService());
-            AllServices.Container.RegisterSingle<IAssetsProvider>(new AssetsProvider());
-            AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssetsProvider>()));
+            ServiceLocator.Container.RegisterSingle<IInputService>(new InputService());
+            ServiceLocator.Container.RegisterSingle<IAssetsProvider>(new AssetsProvider());
+            ServiceLocator.Container.RegisterSingle<IGameFactory>(new GameFactory(ServiceLocator.Container.Single<IAssetsProvider>()));
         }
     }
 }
