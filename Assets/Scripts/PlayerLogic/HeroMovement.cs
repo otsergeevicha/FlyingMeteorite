@@ -13,6 +13,8 @@ namespace PlayerLogic
 
         private float _speed;
         private float _tapForce;
+        private int _counter;
+        private int _progressIndex = 5;
 
         protected override void OnEnabled()
         {
@@ -40,6 +42,18 @@ namespace PlayerLogic
         {
             _rigidbody.velocity = new Vector2(_speed, 0);
             _rigidbody.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);
+        }
+
+        public void IncreaseSpeed(int score)
+        {
+            _counter++;
+            
+            if (_counter < _progressIndex)
+                return;
+            
+            _counter = 0;
+            _progressIndex++;
+            _speed++;
         }
     }
 }

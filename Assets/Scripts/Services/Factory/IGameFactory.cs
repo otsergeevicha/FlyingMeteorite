@@ -1,4 +1,5 @@
-﻿using PlayerLogic;
+﻿using Infrastructure.Factory.Pools;
+using PlayerLogic;
 using Services.ServiceLocator;
 using UnityEngine;
 
@@ -9,5 +10,7 @@ namespace Services.Factory
         Hero CreateHero();
         void CreateHud();
         Camera CreateCamera();
+        Obstacle CreateObstacle();
+        Pool CreatePool();
     }
 }

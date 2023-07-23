@@ -1,4 +1,6 @@
-﻿using CameraLogic;
+﻿using System.Linq;
+using CameraLogic;
+using Infrastructure.Factory.Pools;
 using Infrastructure.LoadingLogic;
 using Infrastructure.LoadingLogic.ScreenLoading;
 using PlayerLogic;
@@ -14,6 +16,7 @@ namespace Infrastructure.GameAI.StateMachine.States
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
+        private ObstaclesModule _obstaclesModule;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
         {
@@ -38,6 +41,9 @@ namespace Infrastructure.GameAI.StateMachine.States
             Hero hero = _gameFactory.CreateHero();
             camera.GetComponent<HeroTracker>().Construct(hero);
             _gameFactory.CreateHud();
+            
+            Pool pool = _gameFactory.CreatePool();
+            _obstaclesModule = new ObstaclesModule(hero, pool, camera);
 
             _stateMachine.Enter<GameLoopState>();
         }

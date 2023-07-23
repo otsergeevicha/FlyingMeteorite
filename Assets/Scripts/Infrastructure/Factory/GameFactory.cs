@@ -1,4 +1,5 @@
-﻿using PlayerLogic;
+﻿using Infrastructure.Factory.Pools;
+using PlayerLogic;
 using Services.Assets;
 using Services.Factory;
 using UnityEngine;
@@ -20,5 +21,11 @@ namespace Infrastructure.Factory
 
         public Camera CreateCamera() => 
             _assetsProvider.InstantiateEntity(Constants.CameraPath).GetComponent<Camera>();
+
+        public Obstacle CreateObstacle() => 
+            _assetsProvider.InstantiateEntity(Constants.ObstaclePath).GetComponent<Obstacle>();
+
+        public Pool CreatePool() => 
+            _assetsProvider.InstantiateEntity(Constants.PoolPath).GetComponent<Pool>();
     }
 }

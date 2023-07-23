@@ -1,4 +1,5 @@
-﻿using PlayerLogic;
+﻿using Infrastructure.Factory.Pools;
+using PlayerLogic;
 using Plugins.MonoCache;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace CameraLogic
             _hero = hero;
 
         protected override void UpdateCached() =>
-            transform.position = new Vector3(_hero.transform.position.x - _xOffset, _hero.transform.position.y,
-                _hero.transform.position.z);
+            transform.position = new Vector3(_hero.transform.position.x - _xOffset, transform.position.y,
+                transform.position.z);
     }
 }
