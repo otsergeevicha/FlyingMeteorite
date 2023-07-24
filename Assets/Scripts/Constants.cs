@@ -9,10 +9,15 @@
     public const string CameraPath = "Camera/CameraTracker";
     public const string PoolPath = "Pools/Pool";
     public const float SpeedHero = 5f;
-    public const float TapForce = 250f;
+    public const float TapForce = 200f;
     public const float OffSetXSpawn = 12f;
     public const float OffSetZSpawn = -5f;
     public const float MinRandomPositionY = 4.5f;
     public const float MaxRandomPositionY = -3.5f;
+    
+    public const float RotationSpeed = 1f;
+    public const float MaxRotationZ = 35f;
+    public const float MinRotationZ = -55f;
+    
     public const int CountSpawnPipe = 8;
 }

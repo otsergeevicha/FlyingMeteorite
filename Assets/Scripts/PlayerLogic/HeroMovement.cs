@@ -1,4 +1,6 @@
-﻿using Plugins.MonoCache;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using Plugins.MonoCache;
 using Services.Inputs;
 using Services.ServiceLocator;
 using UnityEngine;
@@ -15,6 +17,9 @@ namespace PlayerLogic
         private float _tapForce;
         private int _counter;
         private int _progressIndex = 5;
+        private Quaternion _maxRotation;
+        private Quaternion _minRotation;
+        private bool _isJump;
 
         protected override void OnEnabled()
         {
@@ -27,8 +32,27 @@ namespace PlayerLogic
 
             transform.position = Vector3.zero;
             
+            _maxRotation = Quaternion.Euler(0, 0, Constants.MaxRotationZ);
+            _minRotation = Quaternion.Euler(0, 0, Constants.MinRotationZ);
+            
             _input.OnControls();
-            _input.Tap(OnMove);
+            _input.Tap(OnUp);
+        }
+
+        protected override void UpdateCached()
+        {
+            if (_rigidbody.drag <= float.Epsilon)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation,
+                    Constants.RotationSpeed * Time.deltaTime);
+            }
+        }
+
+        private void OnUp()
+        {
+            _rigidbody.velocity = new Vector2(_speed, 0);
+            transform.rotation = _maxRotation;
+            _rigidbody.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);
         }
 
         public void ResetHero()
@@ -38,11 +62,6 @@ namespace PlayerLogic
             _rigidbody.velocity = Vector2.zero;
         }
 
-        private void OnMove()
-        {
-            _rigidbody.velocity = new Vector2(_speed, 0);
-            _rigidbody.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);
-        }
 
         public void IncreaseSpeed(int score)
         {

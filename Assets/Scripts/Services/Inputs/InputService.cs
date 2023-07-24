@@ -6,9 +6,9 @@ namespace Services.Inputs
     {
         private readonly MapInputs _input = new ();
         
-        public void Tap(Action onMove) =>
+        public void Tap(Action onUp) =>
             _input.Player.Tap.performed += _ =>
-                onMove?.Invoke();
+                onUp?.Invoke();
 
         public void OnControls() =>
             _input.Player.Enable();
