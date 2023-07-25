@@ -4,7 +4,7 @@ namespace Infrastructure.Factory.Pools
 {
     public class ObstaclePool
     {
-        private readonly Obstacle[] _pipes = new Obstacle[Constants.CountSpawnPipe];
+        private readonly Obstacle[] _pipes = new Obstacle[Constants.CountSpawnObstacle];
         
         public ObstaclePool(IGameFactory factory)
         {

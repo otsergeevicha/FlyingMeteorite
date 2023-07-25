@@ -19,5 +19,5 @@
     public const float MaxRotationZ = 35f;
     public const float MinRotationZ = -55f;
     
-    public const int CountSpawnPipe = 8;
+    public const int CountSpawnObstacle = 8;
 }
