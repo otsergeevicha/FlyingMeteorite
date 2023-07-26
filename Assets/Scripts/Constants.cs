@@ -4,7 +4,7 @@
     public const string InitialScene = "Initial";
     public const string MainScene = "Main";
     public const string PlayerPath = "Player/Hero";
-    public const string HudPath = "Canvases/Hud";
+    public const string WindowRootPath = "Canvases/WindowRoot";
     public const string ObstaclePath = "Obstacles/Obstacle";
     public const string CameraPath = "Camera/CameraTracker";
     public const string PoolPath = "Pools/Pool";

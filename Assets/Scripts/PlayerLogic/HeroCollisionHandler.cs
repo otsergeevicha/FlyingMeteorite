@@ -14,8 +14,8 @@ namespace PlayerLogic
         {
             if (collision.TryGetComponent(out ScoreZone _)) 
                 _hero.IncreaseScore();
-            // else
-            //     _hero.Die();
+            else
+                _hero.Collision();
         }
     }
 }

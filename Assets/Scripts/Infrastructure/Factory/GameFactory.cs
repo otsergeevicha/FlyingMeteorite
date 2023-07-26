@@ -16,8 +16,8 @@ namespace Infrastructure.Factory
         public Hero CreateHero() => 
             _assetsProvider.InstantiateEntity(Constants.PlayerPath).GetComponent<Hero>();
 
-        public void CreateHud() => 
-            _assetsProvider.InstantiateEntity(Constants.HudPath);
+        public WindowRoot CreateWindowRoot() => 
+            _assetsProvider.InstantiateEntity(Constants.WindowRootPath).GetComponent<WindowRoot>();
 
         public Camera CreateCamera() => 
             _assetsProvider.InstantiateEntity(Constants.CameraPath).GetComponent<Camera>();

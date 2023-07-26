@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CameraLogic;
+using Infrastructure.Factory;
 using Infrastructure.Factory.Pools;
 using Infrastructure.LoadingLogic;
 using Infrastructure.LoadingLogic.ScreenLoading;
@@ -40,9 +41,11 @@ namespace Infrastructure.GameAI.StateMachine.States
             Camera camera = _gameFactory.CreateCamera();
             Hero hero = _gameFactory.CreateHero();
             camera.GetComponent<HeroTracker>().Construct(hero);
-            _gameFactory.CreateHud();
+            WindowRoot windowRoot = _gameFactory.CreateWindowRoot();
             
             Pool pool = _gameFactory.CreatePool();
+
+            windowRoot.Construct(hero);
             _obstaclesModule = new ObstaclesModule(hero, pool, camera);
 
             _stateMachine.Enter<GameLoopState>();

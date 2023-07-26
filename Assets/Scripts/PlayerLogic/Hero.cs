@@ -11,6 +11,7 @@ namespace PlayerLogic
         private HeroMovement _movement;
         private int _score;
         public event Action ScoreChanged;
+        public event Action Collided;
         public event Action Died;
 
         private void Start() => 
@@ -20,7 +21,12 @@ namespace PlayerLogic
         {
             _score = 0;
             _movement.ResetHero();
-            Died?.Invoke();
+        }
+
+        public void Collision()
+        {
+            print("Collision");
+            Collided?.Invoke();
         }
 
         public void Die()

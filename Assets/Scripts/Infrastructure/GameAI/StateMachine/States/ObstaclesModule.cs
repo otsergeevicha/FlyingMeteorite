@@ -56,7 +56,7 @@ namespace Infrastructure.GameAI.StateMachine.States
         private void Dispose()
         {
             _hero.ScoreChanged -= Spawn;
-            _hero.Died -= Dispose;
+            _hero.Collided -= Dispose;
         }
     }
 }
