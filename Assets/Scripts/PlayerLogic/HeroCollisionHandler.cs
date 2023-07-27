@@ -6,13 +6,14 @@ namespace PlayerLogic
     public class HeroCollisionHandler : MonoCache
     {
         private Hero _hero;
+        private bool _isTouch;
 
-        private void Start() => 
+        private void Start() =>
             _hero = Get<Hero>();
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.TryGetComponent(out ScoreZone _)) 
+            if (collision.TryGetComponent(out ScoreZone _))
                 _hero.IncreaseScore();
             else
                 _hero.Collision();

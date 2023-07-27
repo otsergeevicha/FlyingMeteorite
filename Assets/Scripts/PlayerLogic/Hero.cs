@@ -1,4 +1,5 @@
 ﻿using System;
+using Infrastructure.GameAI.StateMachine.States;
 using Plugins.MonoCache;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace PlayerLogic
     public class Hero : MonoCache
     {
         private HeroMovement _movement;
-        private int _score;
+        private ISave _save;
+        private IWallet _wallet;
         public event Action ScoreChanged;
         public event Action Collided;
         public event Action Died;
@@ -17,9 +19,14 @@ namespace PlayerLogic
         private void Start() => 
             _movement = Get<HeroMovement>();
 
+        public void Construct(IWallet wallet) => 
+            _wallet = wallet;
+
+        public int CurrentScore { get; private set; }
+
         public void ResetPlayer()
         {
-            _score = 0;
+            CurrentScore = 0;
             _movement.ResetHero();
         }
 
@@ -32,14 +39,15 @@ namespace PlayerLogic
         public void Die()
         {
             print("Died");
+            _wallet.Apply(CurrentScore);
             Time.timeScale = 0;
             Died?.Invoke();
         }
 
         public void IncreaseScore()
         {
-            _score++;
-            _movement.IncreaseSpeed(_score);
+            CurrentScore++;
+            _movement.IncreaseSpeed(CurrentScore);
             ScoreChanged?.Invoke();
         }
     }

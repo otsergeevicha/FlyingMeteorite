@@ -1,6 +1,7 @@
 ﻿using Agava.YandexGames;
 using PlayerLogic;
 using Plugins.MonoCache;
+using UnityEngine;
 
 namespace Infrastructure.Factory
 {
@@ -13,8 +14,6 @@ namespace Infrastructure.Factory
         {
             _menuScreen = menuScreen;
             _windowHud = windowHud;
-            
-            InActive();
         }
 
         public void SelectContinue() => 
@@ -24,6 +23,9 @@ namespace Infrastructure.Factory
         {
             _windowHud.InActive();
             _menuScreen.OnActive();
+            
+            Time.timeScale = 0;
+            
             InActive();
         }
         

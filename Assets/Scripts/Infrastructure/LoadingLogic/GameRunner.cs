@@ -1,4 +1,6 @@
-﻿using Plugins.MonoCache;
+﻿using System.Collections;
+using Agava.YandexGames;
+using Plugins.MonoCache;
 using UnityEngine;
 
 namespace Infrastructure.LoadingLogic
@@ -9,12 +11,28 @@ namespace Infrastructure.LoadingLogic
 
         private void Awake()
         {
-            var bootstrapper = FindObjectOfType<GameBootstrapper>();
+            var bootstrapper = Find<GameBootstrapper>();
 
             if (bootstrapper != null)
                 return;
 
-            Instantiate(_gameBootstrapper);
+            StartCoroutine(LaunchSDK());
         }
+
+        private IEnumerator LaunchSDK()
+        {
+#if !UNITY_WEBGL || !UNITY_EDITOR
+
+            while (!YandexGamesSdk.IsInitialized)
+                yield return YandexGamesSdk.Initialize();
+
+            StartGame();
+#endif
+            yield return new WaitForSeconds(0f);
+            StartGame();
+        }
+
+        private void StartGame() =>
+            Instantiate(_gameBootstrapper);
     }
 }

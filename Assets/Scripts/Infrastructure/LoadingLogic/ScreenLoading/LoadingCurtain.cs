@@ -1,4 +1,5 @@
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using Plugins.MonoCache;
 using UnityEngine;
 
@@ -7,10 +8,7 @@ namespace Infrastructure.LoadingLogic.ScreenLoading
     public class LoadingCurtain : MonoCache
     {
         [SerializeField] private CanvasGroup _curtain;
-
-        private readonly WaitForSeconds _waitSeconds = new(Constants.RateAlfaCurtain);
-        private Coroutine _coroutine;
-
+        
         private void Awake() =>
             DontDestroyOnLoad(this);
 
@@ -19,16 +17,16 @@ namespace Infrastructure.LoadingLogic.ScreenLoading
             gameObject.SetActive(true);
             _curtain.alpha = 1;
         }
-
+        
         public void Hide() => 
-            StartCoroutine(DoFadeIn());
+            _ = FadeIn();
 
-        private IEnumerator DoFadeIn()
+        private async UniTaskVoid FadeIn()
         {
             while (_curtain.alpha > 0)
             {
                 _curtain.alpha -= Constants.RateAlfaCurtain;
-                yield return _waitSeconds;
+                await UniTask.Delay(Constants.RateCurtain);
             }
 
             gameObject.SetActive(false);

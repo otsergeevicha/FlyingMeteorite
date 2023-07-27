@@ -1,5 +1,6 @@
 ﻿using PlayerLogic;
 using Plugins.MonoCache;
+using TMPro;
 using UnityEngine;
 
 namespace Infrastructure.Factory
@@ -7,6 +8,7 @@ namespace Infrastructure.Factory
     public class WindowHud : MonoCache
     {
         [SerializeField] private Heart[] _hearts;
+        [SerializeField] private TMP_Text _currentScore;
 
         private int _countHeart;
         private Hero _hero;
@@ -16,6 +18,7 @@ namespace Infrastructure.Factory
             _hero = hero;
             
             _hero.Collided += HeroOnCollided;
+            _hero.ScoreChanged += RenderScore;
 
             Revival();
         }
@@ -42,5 +45,8 @@ namespace Infrastructure.Factory
             if (_countHeart == 0) 
                 _hero.Die();
         }
+
+        private void RenderScore() => 
+            _currentScore.text = _hero.CurrentScore.ToString();
     }
 }

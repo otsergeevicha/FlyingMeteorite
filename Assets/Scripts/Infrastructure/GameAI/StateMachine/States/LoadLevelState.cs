@@ -6,6 +6,7 @@ using Infrastructure.LoadingLogic;
 using Infrastructure.LoadingLogic.ScreenLoading;
 using PlayerLogic;
 using Services.Factory;
+using Services.ServiceLocator;
 using Services.StateMachine;
 using UnityEngine;
 
@@ -40,12 +41,18 @@ namespace Infrastructure.GameAI.StateMachine.States
         {
             Camera camera = _gameFactory.CreateCamera();
             Hero hero = _gameFactory.CreateHero();
+
+            IWallet wallet = ServiceLocator.Container.Single<IWallet>();
+            
+            hero.Construct(wallet);
+            
             camera.GetComponent<HeroTracker>().Construct(hero);
+            
             WindowRoot windowRoot = _gameFactory.CreateWindowRoot();
             
             Pool pool = _gameFactory.CreatePool();
 
-            windowRoot.Construct(hero);
+            windowRoot.Construct(hero, wallet, _gameFactory);
             _obstaclesModule = new ObstaclesModule(hero, pool, camera);
 
             _stateMachine.Enter<GameLoopState>();

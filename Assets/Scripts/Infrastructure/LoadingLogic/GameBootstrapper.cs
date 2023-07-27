@@ -15,7 +15,7 @@ namespace Infrastructure.LoadingLogic
         {
             _game = new Game(Instantiate(_curtain));
             _game.StateMachine.Enter<BootstrapState>();
-            
+
             DontDestroyOnLoad(this);
         }
     }

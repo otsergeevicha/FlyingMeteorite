@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6119187671324976454}
   - component: {fileID: 4390644596498625941}
   - component: {fileID: 5314567166659682174}
-  - component: {fileID: 2470237024015327685}
+  - component: {fileID: 4384667253639311296}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a613ab98cc74f91b681fba0e37497d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &2470237024015327685
-CircleCollider2D:
+--- !u!70 &4384667253639311296
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -218,9 +218,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: 0.54}
+  m_Size: {x: 2.63, y: 2.1}
+  m_Direction: 1
 --- !u!1 &8042419628203492969
 GameObject:
   m_ObjectHideFlags: 0

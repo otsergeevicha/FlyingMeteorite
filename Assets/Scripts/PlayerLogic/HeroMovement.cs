@@ -1,6 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using Plugins.MonoCache;
+﻿using Plugins.MonoCache;
 using Services.Inputs;
 using Services.ServiceLocator;
 using UnityEngine;
@@ -8,6 +6,7 @@ using UnityEngine;
 namespace PlayerLogic
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(HeroCollisionHandler))]
     public class HeroMovement : MonoCache
     {
         private Rigidbody2D _rigidbody;
@@ -60,6 +59,7 @@ namespace PlayerLogic
             transform.position = Vector2.zero;
             transform.rotation = Quaternion.Euler(0, 0, 0);
             _rigidbody.velocity = Vector2.zero;
+            _rigidbody.inertia = 0;
         }
 
 
