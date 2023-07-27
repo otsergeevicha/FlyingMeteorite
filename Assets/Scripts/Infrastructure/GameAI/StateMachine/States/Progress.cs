@@ -1,4 +1,5 @@
 ﻿using System;
+using Infrastructure.Factory;
 
 namespace Infrastructure.GameAI.StateMachine.States
 {
@@ -6,8 +7,12 @@ namespace Infrastructure.GameAI.StateMachine.States
     public class Progress
     {
         public DataWallet DataWallet;
+        public DataCurrentCharacter DataCurrentCharacter;
 
-        public Progress() => 
+        public Progress()
+        {
             DataWallet = new DataWallet();
+            DataCurrentCharacter = new DataCurrentCharacter();
+        }
     }
 }

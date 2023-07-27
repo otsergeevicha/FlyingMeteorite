@@ -15,7 +15,7 @@ namespace Infrastructure.Factory
         private LeaderboardScreen _leaderboardScreen;
         private ShopScreen _shopScreen;
 
-        public void Construct(Hero hero, IWallet wallet, IGameFactory gameFactory)
+        public void Construct(Hero hero, IWallet wallet, ISave save)
         {
             _windowHud = ChildrenGet<WindowHud>();
             _windowHud.Inject(hero);
@@ -25,7 +25,7 @@ namespace Infrastructure.Factory
             _authorizationScreen = ChildrenGet<AuthorizationScreen>();
             
             _shopScreen = ChildrenGet<ShopScreen>();
-            _shopScreen.Inject(wallet, hero);
+            _shopScreen.Inject(wallet, hero, save);
             
             _menuScreen = ChildrenGet<MenuScreen>();
             _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen);

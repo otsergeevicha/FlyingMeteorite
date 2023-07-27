@@ -9,8 +9,9 @@ namespace PlayerLogic
     [RequireComponent(typeof(HeroCollisionHandler))]
     public class Hero : MonoCache
     {
+        [SerializeField] private SpriteRenderer _iconCharacter;
+        
         private HeroMovement _movement;
-        private ISave _save;
         private IWallet _wallet;
         public event Action ScoreChanged;
         public event Action Collided;
@@ -50,5 +51,8 @@ namespace PlayerLogic
             _movement.IncreaseSpeed(CurrentScore);
             ScoreChanged?.Invoke();
         }
+
+        public void ChangeHeroIcon(Sprite character) => 
+            _iconCharacter.sprite = character;
     }
 }

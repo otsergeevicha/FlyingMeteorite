@@ -18,10 +18,13 @@ namespace Infrastructure.GameAI.StateMachine.States
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
+        private readonly IWallet _wallet;
         private ObstaclesModule _obstaclesModule;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
+            IGameFactory gameFactory, IWallet wallet)
         {
+            _wallet = wallet;
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
@@ -42,9 +45,7 @@ namespace Infrastructure.GameAI.StateMachine.States
             Camera camera = _gameFactory.CreateCamera();
             Hero hero = _gameFactory.CreateHero();
 
-            IWallet wallet = ServiceLocator.Container.Single<IWallet>();
-            
-            hero.Construct(wallet);
+            hero.Construct(_wallet);
             
             camera.GetComponent<HeroTracker>().Construct(hero);
             
@@ -52,7 +53,7 @@ namespace Infrastructure.GameAI.StateMachine.States
             
             Pool pool = _gameFactory.CreatePool();
 
-            windowRoot.Construct(hero, wallet, _gameFactory);
+            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>());
             _obstaclesModule = new ObstaclesModule(hero, pool, camera);
 
             _stateMachine.Enter<GameLoopState>();
