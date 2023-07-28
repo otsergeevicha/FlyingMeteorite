@@ -18,24 +18,22 @@ namespace Infrastructure.Factory
         public void Construct(Hero hero, IWallet wallet, ISave save)
         {
             _windowHud = ChildrenGet<WindowHud>();
-            _windowHud.Inject(hero);
-            
             _leaderboardScreen = ChildrenGet<LeaderboardScreen>();
-            
             _authorizationScreen = ChildrenGet<AuthorizationScreen>();
-            
             _shopScreen = ChildrenGet<ShopScreen>();
-            _shopScreen.Inject(wallet, hero, save);
-            
             _menuScreen = ChildrenGet<MenuScreen>();
-            _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen);
-
             _gameOverScreen = ChildrenGet<GameOverScreen>();
+            
+            _windowHud.Inject(hero);
+            _shopScreen.Inject(wallet, hero, save, _menuScreen);
             _gameOverScreen.Inject(hero, _windowHud, _menuScreen);
+            _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen);
+            _leaderboardScreen.Inject(save, _authorizationScreen, _menuScreen);
+            _authorizationScreen.Inject(_menuScreen, _leaderboardScreen);
             
             hero.Died += HeroOnDied;
 
-            FreezeTime();
+            Time.timeScale = 0;
             FirstConfigWindows();
         }
 
@@ -49,10 +47,7 @@ namespace Infrastructure.Factory
             _leaderboardScreen.InActive();
             _shopScreen.InActive();
         }
-
-        private void FreezeTime() =>
-            Time.timeScale = 0;
-
+        
         private void HeroOnDied() =>
             _gameOverScreen.OnActive();
     }

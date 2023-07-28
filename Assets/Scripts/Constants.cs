@@ -33,6 +33,12 @@
     //saveLoad
     public const string Progress = "Progress";
     
+    //Leaderboard
+    public const string Leaderboard = "Leaderboard";
+    public const string Anonymous = "Anonymous";
+    public const int TopPlayersCount = 5;
+    public const int CompletingPlayersCount = 1;
+    
     //curtain
     public const int RateCurtain = 3;
     public const float RateAlfaCurtain = .03f;

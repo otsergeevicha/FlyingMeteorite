@@ -46,7 +46,7 @@ namespace Infrastructure.Factory
                 _hero.Die();
         }
 
-        private void RenderScore() => 
+        public void RenderScore() => 
             _currentScore.text = _hero.CurrentScore.ToString();
     }
 }

@@ -31,6 +31,9 @@ namespace PlayerLogic
             _movement.ResetHero();
         }
 
+        public void ResetMovement() => 
+            _movement.ResetHero();
+
         public void Collision()
         {
             print("Collision");

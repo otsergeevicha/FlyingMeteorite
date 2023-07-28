@@ -17,9 +17,11 @@ namespace Infrastructure.Factory
 
         private ContentView[] _contentViews;
         private ISave _save;
+        private MenuScreen _menuScreen;
 
-        public void Inject(IWallet wallet, Hero hero, ISave save)
+        public void Inject(IWallet wallet, Hero hero, ISave save, MenuScreen menuScreen)
         {
+            _menuScreen = menuScreen;
             _save = save;
             _hero = hero;
             _wallet = wallet;
@@ -37,10 +39,14 @@ namespace Infrastructure.Factory
             }
             
             hero.ChangeHeroIcon(_characters[save.AccessProgress().DataCurrentCharacter.Read()]);
-            
-            print(save.AccessProgress().DataCurrentCharacter.Read());
         }
 
+        public void CloseStore()
+        {
+            _menuScreen.OnActive();
+            InActive();
+        }
+        
         public void OnActive()
         {
             UpdateShop();

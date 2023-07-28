@@ -27,6 +27,7 @@ namespace Infrastructure.LoadingLogic
                 yield return YandexGamesSdk.Initialize();
 
             StartGame();
+            return;
 #endif
             yield return new WaitForSeconds(0f);
             StartGame();
