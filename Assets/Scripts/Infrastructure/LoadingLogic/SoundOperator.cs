@@ -1,5 +1,4 @@
-﻿using System;
-using Agava.WebUtility;
+﻿using Agava.WebUtility;
 using Agava.YandexGames;
 using Plugins.MonoCache;
 using UnityEngine;
@@ -20,7 +19,6 @@ namespace Infrastructure.LoadingLogic
 
         protected override void OnDisabled() => 
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
-        
 
         public void Mute() => 
             _audioListener.enabled = false;
