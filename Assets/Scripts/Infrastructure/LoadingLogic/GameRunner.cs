@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Agava.YandexGames;
+using Lean.Localization;
 using Plugins.MonoCache;
 using UnityEngine;
 
@@ -22,7 +23,6 @@ namespace Infrastructure.LoadingLogic
         private IEnumerator LaunchSDK()
         {
 #if !UNITY_WEBGL || !UNITY_EDITOR
-
             while (!YandexGamesSdk.IsInitialized)
                 yield return YandexGamesSdk.Initialize();
 

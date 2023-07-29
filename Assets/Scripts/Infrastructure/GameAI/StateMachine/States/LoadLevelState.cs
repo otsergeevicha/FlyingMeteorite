@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CameraLogic;
+﻿using CameraLogic;
 using Infrastructure.Factory;
 using Infrastructure.Factory.Pools;
 using Infrastructure.LoadingLogic;

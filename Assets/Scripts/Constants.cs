@@ -10,6 +10,7 @@
     public const string ObstaclePath = "Obstacles/Obstacle";
     public const string CameraPath = "Camera/CameraTracker";
     public const string PoolPath = "Pools/Pool";
+    public const string LeanLocalizationPath = "Localization/LeanLocalization";
     
     //hero
     public const float SpeedHero = 5f;
