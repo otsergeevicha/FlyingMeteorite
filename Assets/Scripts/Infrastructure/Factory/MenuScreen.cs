@@ -1,18 +1,28 @@
-﻿using PlayerLogic;
+﻿using System.Net;
+using Infrastructure.LoadingLogic;
+using PlayerLogic;
 using Plugins.MonoCache;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Infrastructure.Factory
 {
     public class MenuScreen : MonoCache
     {
+        [SerializeField] private Image _activeSoundIcon;
+        [SerializeField] private Image _inActiveSoundIcon;
+        [SerializeField] private Toggle _toggleSound;
+        
         private WindowHud _windowHud;
         private Hero _hero;
         private ShopScreen _shopScreen;
         private LeaderboardScreen _leaderboardScreen;
+        private SoundOperator _soundOperator;
 
-        public void Inject(WindowHud windowHud, Hero hero, ShopScreen shopScreen, LeaderboardScreen leaderboardScreen)
+        public void Inject(WindowHud windowHud, Hero hero, ShopScreen shopScreen, LeaderboardScreen leaderboardScreen,
+            SoundOperator soundOperator)
         {
+            _soundOperator = soundOperator;
             _leaderboardScreen = leaderboardScreen;
             _shopScreen = shopScreen;
             _hero = hero;
@@ -30,7 +40,13 @@ namespace Infrastructure.Factory
 
         public void SelectSound()
         {
-            print("тут пока что никого");
+            if (_toggleSound.isOn) 
+                _soundOperator.UnMute();
+
+            if (!_toggleSound.isOn) 
+                _soundOperator.Mute();
+            
+            ChangeIconSound(_toggleSound.isOn);
         }
 
         public void SelectLeaderBoard()
@@ -50,5 +66,11 @@ namespace Infrastructure.Factory
 
         public void InActive() => 
             gameObject.SetActive(false);
+
+        private void ChangeIconSound(bool flag)
+        {
+            _activeSoundIcon.gameObject.SetActive(flag);
+            _inActiveSoundIcon.gameObject.SetActive(!flag);
+        }
     }
 }

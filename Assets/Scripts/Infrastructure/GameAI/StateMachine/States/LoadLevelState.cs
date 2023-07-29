@@ -53,7 +53,7 @@ namespace Infrastructure.GameAI.StateMachine.States
             
             Pool pool = _gameFactory.CreatePool();
 
-            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>());
+            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), camera.GetComponent<SoundOperator>());
             _obstaclesModule = new ObstaclesModule(hero, pool, camera);
 
             _stateMachine.Enter<GameLoopState>();

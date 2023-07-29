@@ -1,4 +1,5 @@
 ﻿using Infrastructure.GameAI.StateMachine.States;
+using Infrastructure.LoadingLogic;
 using PlayerLogic;
 using Plugins.MonoCache;
 using Services.Factory;
@@ -15,7 +16,7 @@ namespace Infrastructure.Factory
         private LeaderboardScreen _leaderboardScreen;
         private ShopScreen _shopScreen;
 
-        public void Construct(Hero hero, IWallet wallet, ISave save)
+        public void Construct(Hero hero, IWallet wallet, ISave save, SoundOperator soundOperator)
         {
             _windowHud = ChildrenGet<WindowHud>();
             _leaderboardScreen = ChildrenGet<LeaderboardScreen>();
@@ -26,8 +27,8 @@ namespace Infrastructure.Factory
             
             _windowHud.Inject(hero);
             _shopScreen.Inject(wallet, hero, save, _menuScreen);
-            _gameOverScreen.Inject(hero, _windowHud, _menuScreen);
-            _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen);
+            _gameOverScreen.Inject(hero, _windowHud, _menuScreen, soundOperator);
+            _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen, soundOperator);
             _leaderboardScreen.Inject(save, _authorizationScreen, _menuScreen);
             _authorizationScreen.Inject(_menuScreen, _leaderboardScreen);
             

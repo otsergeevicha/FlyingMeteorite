@@ -1,4 +1,5 @@
 ﻿using Agava.YandexGames;
+using Infrastructure.LoadingLogic;
 using PlayerLogic;
 using Plugins.MonoCache;
 using UnityEngine;
@@ -10,9 +11,11 @@ namespace Infrastructure.Factory
         private WindowHud _windowHud;
         private MenuScreen _menuScreen;
         private Hero _hero;
+        private SoundOperator _soundOperator;
 
-        public void Inject(Hero hero, WindowHud windowHud, MenuScreen menuScreen)
+        public void Inject(Hero hero, WindowHud windowHud, MenuScreen menuScreen, SoundOperator soundOperator)
         {
+            _soundOperator = soundOperator;
             _hero = hero;
             _menuScreen = menuScreen;
             _windowHud = windowHud;
@@ -34,8 +37,9 @@ namespace Infrastructure.Factory
             _windowHud.OnActive();
             _windowHud.Revival();
             _windowHud.RenderScore();
-            Time.timeScale = 1;
+            _soundOperator.UnLockGame();
             InActive();
+            _soundOperator.PlayMainSound();
         }
 
         public void SelectClose()
@@ -43,25 +47,31 @@ namespace Infrastructure.Factory
             _windowHud.InActive();
             _menuScreen.OnActive();
 
-            Time.timeScale = 0;
+            _soundOperator.UnLockGame();
 
             InActive();
+            
+            _soundOperator.PlayMainSound();
         }
 
-        public void OnActive() =>
+        public void OnActive()
+        {
+            _soundOperator.PlayGameOverSound();
             gameObject.SetActive(true);
+        }
 
         public void InActive() =>
             gameObject.SetActive(false);
 
-        private void OnOpenCallback() {}
+        private void OnOpenCallback() => 
+            _soundOperator.LockGame();
 
         private void OnRewardedCallback()
         {
             _windowHud.OnActive();
             _windowHud.Revival();
             _hero.ResetMovement();
-            Time.timeScale = 1;
+            _soundOperator.UnLockGame();
             InActive();
         }
 

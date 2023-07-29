@@ -10384,7 +10384,7 @@ GameObject:
   - component: {fileID: 5716095271192181567}
   - component: {fileID: 821173412079406119}
   - component: {fileID: 1701552001117728384}
-  - component: {fileID: 5573681385715560344}
+  - component: {fileID: 7410337058854255544}
   m_Layer: 5
   m_Name: Button_Music
   m_TagString: Untagged
@@ -10451,7 +10451,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5573681385715560344
+--- !u!114 &7410337058854255544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10460,7 +10460,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1121801269130272648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -10492,7 +10492,10 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1701552001117728384}
-  m_OnClick:
+  toggleTransition: 1
+  graphic: {fileID: 0}
+  m_Group: {fileID: 0}
+  onValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4851623862053209080}
@@ -10507,6 +10510,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_IsOn: 1
 --- !u!1 &1243837792837341597
 GameObject:
   m_ObjectHideFlags: 0
@@ -38070,6 +38074,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac3255efb7743e493afb003d392e66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activeSoundIcon: {fileID: 8623382322785808822}
+  _inActiveSoundIcon: {fileID: 1139468525165210306}
+  _toggleSound: {fileID: 7410337058854255544}
 --- !u!1 &5782527263995324046
 GameObject:
   m_ObjectHideFlags: 0
