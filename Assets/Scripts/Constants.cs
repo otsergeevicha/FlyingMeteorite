@@ -29,7 +29,7 @@
     public const int CountSpawnObstacle = 8;
     
     //calculation formula
-    public const int MultiplierValueLevel = 5;
+    public const int MultiplierValueLevel = 15;
     
     //saveLoad
     public const string Progress = "Progress";

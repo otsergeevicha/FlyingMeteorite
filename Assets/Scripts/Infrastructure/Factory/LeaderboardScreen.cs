@@ -30,15 +30,17 @@ namespace Infrastructure.Factory
 
         public void OnActive()
         {
+#if !UNITY_WEBGL || !UNITY_EDITOR
+
             if (PlayerAccount.IsAuthorized)
             {
                 Leaderboard.SetScore(Constants.Leaderboard, _save.AccessProgress().DataWallet.Read());
                 GetLeaderboardEntries();
             }
             else if (!PlayerAccount.IsAuthorized)
-            {
                 _authorizationScreen.OnActive();
-            }
+#endif
+            gameObject.SetActive(true);
         }
 
         public void CloseWindow()
