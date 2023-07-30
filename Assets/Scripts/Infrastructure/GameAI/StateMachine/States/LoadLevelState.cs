@@ -18,7 +18,6 @@ namespace Infrastructure.GameAI.StateMachine.States
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IWallet _wallet;
-        private ObstaclesModule _obstaclesModule;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
             IGameFactory gameFactory, IWallet wallet)
@@ -52,8 +51,8 @@ namespace Infrastructure.GameAI.StateMachine.States
             
             Pool pool = _gameFactory.CreatePool();
 
-            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), camera.GetComponent<SoundOperator>());
-            _obstaclesModule = new ObstaclesModule(hero, pool, camera);
+            ObstaclesModule obstaclesModule = new ObstaclesModule(hero, pool, camera);
+            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), camera.GetComponent<SoundOperator>(), obstaclesModule);
 
             _stateMachine.Enter<GameLoopState>();
         }

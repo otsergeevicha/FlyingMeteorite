@@ -1,4 +1,4 @@
-﻿using System.Net;
+﻿using Infrastructure.GameAI.StateMachine.States;
 using Infrastructure.LoadingLogic;
 using PlayerLogic;
 using Plugins.MonoCache;
@@ -18,10 +18,14 @@ namespace Infrastructure.Factory
         private ShopScreen _shopScreen;
         private LeaderboardScreen _leaderboardScreen;
         private SoundOperator _soundOperator;
+        private ViewMainCharacter _viewMainCharacter;
+        private ObstaclesModule _obstaclesModule;
 
         public void Inject(WindowHud windowHud, Hero hero, ShopScreen shopScreen, LeaderboardScreen leaderboardScreen,
-            SoundOperator soundOperator)
+            SoundOperator soundOperator, ViewMainCharacter viewMainCharacter, ObstaclesModule obstaclesModule)
         {
+            _obstaclesModule = obstaclesModule;
+            _viewMainCharacter = viewMainCharacter;
             _soundOperator = soundOperator;
             _leaderboardScreen = leaderboardScreen;
             _shopScreen = shopScreen;
@@ -34,7 +38,10 @@ namespace Infrastructure.Factory
             _hero.ResetPlayer();
             _windowHud.OnActive();
             _windowHud.Revival();
+            _windowHud.RenderScore();
+            _obstaclesModule.ResetObstacles();
             Time.timeScale = 1;
+            _obstaclesModule.Launch();
             InActive();
         }
 
@@ -61,8 +68,11 @@ namespace Infrastructure.Factory
             InActive();
         }
 
-        public void OnActive() => 
+        public void OnActive()
+        {
             gameObject.SetActive(true);
+            _viewMainCharacter.UpdateMainIcon();
+        }
 
         public void InActive() => 
             gameObject.SetActive(false);

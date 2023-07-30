@@ -41,6 +41,9 @@ namespace Infrastructure.Factory
             hero.ChangeHeroIcon(_characters[save.AccessProgress().DataCurrentCharacter.Read()]);
         }
 
+        public Sprite GetCurrentIcon() =>
+            _characters[_save.AccessProgress().DataCurrentCharacter.Read()];
+
         public void CloseStore()
         {
             _menuScreen.OnActive();

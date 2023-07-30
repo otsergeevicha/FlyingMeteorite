@@ -22,15 +22,14 @@ namespace Infrastructure.LoadingLogic
 
         private IEnumerator LaunchSDK()
         {
-#if !UNITY_WEBGL || !UNITY_EDITOR
+ #if !UNITY_WEBGL || !UNITY_EDITOR
             while (!YandexGamesSdk.IsInitialized)
                 yield return YandexGamesSdk.Initialize();
 
             StartGame();
-            return;
-#endif
-            yield return new WaitForSeconds(0f);
-            StartGame();
+ #endif
+             yield return new WaitForSeconds(0f);
+             StartGame();
         }
 
         private void StartGame() =>

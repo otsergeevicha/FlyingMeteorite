@@ -10,7 +10,6 @@
     public const string ObstaclePath = "Obstacles/Obstacle";
     public const string CameraPath = "Camera/CameraTracker";
     public const string PoolPath = "Pools/Pool";
-    public const string LeanLocalizationPath = "Localization/LeanLocalization";
     
     //hero
     public const float SpeedHero = 5f;
@@ -27,6 +26,7 @@
     public const float MinRandomPositionY = 4.5f;
     public const float MaxRandomPositionY = -3.5f;
     public const int CountSpawnObstacle = 8;
+    public const int SpawnInterval = 2000;
     
     //calculation formula
     public const int MultiplierValueLevel = 15;

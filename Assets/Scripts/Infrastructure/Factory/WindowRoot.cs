@@ -15,8 +15,10 @@ namespace Infrastructure.Factory
         private AuthorizationScreen _authorizationScreen;
         private LeaderboardScreen _leaderboardScreen;
         private ShopScreen _shopScreen;
+        private ViewMainCharacter _viewMainCharacter;
 
-        public void Construct(Hero hero, IWallet wallet, ISave save, SoundOperator soundOperator)
+        public void Construct(Hero hero, IWallet wallet, ISave save, SoundOperator soundOperator,
+            ObstaclesModule obstaclesModule)
         {
             _windowHud = ChildrenGet<WindowHud>();
             _leaderboardScreen = ChildrenGet<LeaderboardScreen>();
@@ -24,11 +26,13 @@ namespace Infrastructure.Factory
             _shopScreen = ChildrenGet<ShopScreen>();
             _menuScreen = ChildrenGet<MenuScreen>();
             _gameOverScreen = ChildrenGet<GameOverScreen>();
+            _viewMainCharacter = ChildrenGet<ViewMainCharacter>();
             
             _windowHud.Inject(hero);
             _shopScreen.Inject(wallet, hero, save, _menuScreen);
-            _gameOverScreen.Inject(hero, _windowHud, _menuScreen, soundOperator);
-            _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen, soundOperator);
+            _gameOverScreen.Inject(hero, _windowHud, _menuScreen, soundOperator, obstaclesModule);
+            _viewMainCharacter.Inject(_shopScreen);
+            _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen, soundOperator, _viewMainCharacter, obstaclesModule);
             _leaderboardScreen.Inject(save, _authorizationScreen, _menuScreen);
             _authorizationScreen.Inject(_menuScreen, _leaderboardScreen);
             

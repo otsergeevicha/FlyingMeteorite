@@ -1,4 +1,5 @@
 ﻿using Agava.YandexGames;
+using Infrastructure.GameAI.StateMachine.States;
 using Infrastructure.LoadingLogic;
 using PlayerLogic;
 using Plugins.MonoCache;
@@ -12,9 +13,12 @@ namespace Infrastructure.Factory
         private MenuScreen _menuScreen;
         private Hero _hero;
         private SoundOperator _soundOperator;
+        private ObstaclesModule _obstaclesModule;
 
-        public void Inject(Hero hero, WindowHud windowHud, MenuScreen menuScreen, SoundOperator soundOperator)
+        public void Inject(Hero hero, WindowHud windowHud, MenuScreen menuScreen, SoundOperator soundOperator,
+            ObstaclesModule obstaclesModule)
         {
+            _obstaclesModule = obstaclesModule;
             _soundOperator = soundOperator;
             _hero = hero;
             _menuScreen = menuScreen;
@@ -38,6 +42,8 @@ namespace Infrastructure.Factory
             _windowHud.Revival();
             _windowHud.RenderScore();
             _soundOperator.UnLockGame();
+            _obstaclesModule.ResetObstacles();
+            _obstaclesModule.Launch();
             InActive();
             _soundOperator.PlayMainSound();
         }
@@ -48,7 +54,8 @@ namespace Infrastructure.Factory
             _menuScreen.OnActive();
 
             _soundOperator.UnLockGame();
-
+            Time.timeScale = 0;
+            _hero.ResetPlayer();
             InActive();
             
             _soundOperator.PlayMainSound();

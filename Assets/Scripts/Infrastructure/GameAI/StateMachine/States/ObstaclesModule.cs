@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Cysharp.Threading.Tasks;
 using Infrastructure.Factory.Pools;
 using PlayerLogic;
 using UnityEngine;
@@ -9,30 +10,47 @@ namespace Infrastructure.GameAI.StateMachine.States
     {
         private readonly Pool _pool;
         private readonly Camera _camera;
-        private Hero _hero;
+        private readonly Hero _hero;
+        private float _currentSpawnPosition;
+        private bool _isAlive;
 
         public ObstaclesModule(Hero hero, Pool pool, Camera camera)
         {
             _hero = hero;
             _camera = camera;
             _pool = pool;
-
-            _hero.ScoreChanged += Spawn;
-            _hero.Died += Dispose;
-
-            Spawn();
+            
+            
         }
 
-        private void Spawn()
+        public void ResetObstacles()
         {
-            OnActiveObstacle();
-            DisableObstacle();
+            foreach (Obstacle obstacle in _pool.GetObstaclePool().Get()) 
+                obstacle.InActive();
+
+            _isAlive = false;
         }
 
+        public void Launch()
+        {
+            _isAlive = true;
+            _ = SpawnObstacles();
+        }
+        
         private void OnActiveObstacle()
         {
             Vector3 currentPointSpawn = GetCurrentPointSpawn();
             _pool.TryGetObstacle().Active(currentPointSpawn);
+        }
+
+        private async UniTaskVoid SpawnObstacles()
+        {
+            while (_isAlive)
+            {
+                _currentSpawnPosition = _hero.transform.position.x + Constants.OffSetXSpawn;
+                Spawn();
+                await UniTask.Delay(Constants.SpawnInterval);
+            }
         }
 
         private Vector3 GetCurrentPointSpawn() =>
@@ -53,10 +71,11 @@ namespace Infrastructure.GameAI.StateMachine.States
         private float GetRandomPositionY() =>
             _camera.transform.position.y + Random.Range(Constants.MinRandomPositionY, Constants.MaxRandomPositionY);
 
-        private void Dispose()
+
+        private void Spawn()
         {
-            _hero.ScoreChanged -= Spawn;
-            _hero.Collided -= Dispose;
+            OnActiveObstacle();
+            DisableObstacle();
         }
     }
 }
