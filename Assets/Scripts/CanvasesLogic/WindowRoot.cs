@@ -15,6 +15,7 @@ using UnityEngine;
 
 namespace CanvasesLogic
 {
+    [RequireComponent(typeof(Canvas))]
     public class WindowRoot : MonoCache
     {
         private WindowHud _windowHud;

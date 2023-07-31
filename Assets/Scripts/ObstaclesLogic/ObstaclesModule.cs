@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Factory.Pools;
 using PlayerLogic;
@@ -8,6 +9,7 @@ namespace ObstaclesLogic
 {
     public class ObstaclesModule
     {
+        private readonly CancellationTokenSource _token = new ();
         private readonly Pool _pool;
         private readonly Camera _camera;
         private readonly Hero _hero;
@@ -45,14 +47,15 @@ namespace ObstaclesLogic
         {
             while (_isAlive)
             {
-                _currentSpawnPosition = _hero.transform.position.x + Constants.OffSetXSpawn;
                 Spawn();
                 await UniTask.Delay(Constants.SpawnInterval);
             }
+            
+            _token.Cancel();
         }
 
         private Vector3 GetCurrentPointSpawn() =>
-            new (_camera.transform.position.x + Constants.OffSetXSpawn, GetRandomPositionY(),
+            new (_hero.transform.position.x + Constants.OffSetXSpawn, GetRandomPositionY(),
                 _camera.transform.position.z - Constants.OffSetZSpawn);
 
         private void DisableObstacle()

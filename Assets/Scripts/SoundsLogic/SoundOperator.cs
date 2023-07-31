@@ -11,6 +11,8 @@ namespace SoundsLogic
         [SerializeField] private AudioSource _playSound;
         [SerializeField] private AudioSource _gameOverSound;
 
+        public bool IsSoundStatus { get; private set; } = true;
+
         protected override void OnEnabled() => 
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
 
@@ -20,11 +22,18 @@ namespace SoundsLogic
         protected override void OnDisabled() => 
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
 
-        public void Mute() => 
+        public void Mute()
+        {
             _audioListener.enabled = false;
-        
-        public void UnMute() => 
+            IsSoundStatus = false;
+        }
+
+        public void UnMute()
+        {
             _audioListener.enabled = true;
+            IsSoundStatus = true;
+
+        }
 
         public void LockGame()
         {

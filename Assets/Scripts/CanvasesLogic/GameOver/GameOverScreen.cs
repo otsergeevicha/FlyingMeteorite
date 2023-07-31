@@ -1,4 +1,5 @@
-﻿using CanvasesLogic.Hud;
+﻿using Agava.YandexGames;
+using CanvasesLogic.Hud;
 using CanvasesLogic.Menu;
 using ObstaclesLogic;
 using PlayerLogic;
@@ -29,7 +30,6 @@ namespace CanvasesLogic.GameOver
         public void SelectContinue()
         {
 #if !UNITY_WEBGL || !UNITY_EDITOR
-
             VideoAd.Show(OnOpenCallback, OnRewardedCallback, OnCloseCallback, OnErrorCallback);
             return;
 #endif
@@ -39,54 +39,67 @@ namespace CanvasesLogic.GameOver
         public void SelectRestart()
         {
             _hero.ResetPlayer();
+            
             _windowHud.OnActive();
             _windowHud.Revival();
             _windowHud.RenderScore();
+            
             _soundOperator.UnLockGame();
             _obstaclesModule.ResetObstacles();
             _obstaclesModule.Launch();
             InActive();
-            _soundOperator.PlayMainSound();
+
+            PlaySound();
         }
 
         public void SelectClose()
         {
             _windowHud.InActive();
             _menuScreen.OnActive();
-
-            _soundOperator.UnLockGame();
+            
             Time.timeScale = 0;
             _hero.ResetPlayer();
             InActive();
-            
-            _soundOperator.PlayMainSound();
+
+            PlaySound();
         }
 
         public void OnActive()
         {
-            _soundOperator.PlayGameOverSound();
+            if (_soundOperator.IsSoundStatus) 
+                _soundOperator.PlayGameOverSound();
+            
             gameObject.SetActive(true);
         }
 
         public void InActive() =>
             gameObject.SetActive(false);
 
-        private void OnOpenCallback() => 
+        private void OnOpenCallback() =>
             _soundOperator.LockGame();
 
         private void OnRewardedCallback()
         {
             _windowHud.OnActive();
             _windowHud.Revival();
-            _hero.ResetMovement();
-            _soundOperator.UnLockGame();
+            _hero.ResetMovement();            
+            Time.timeScale = 1;
+            
+            PlaySound();
+            
             InActive();
+        }
+
+        private void PlaySound()
+        {
+            if (_soundOperator.IsSoundStatus)
+                _soundOperator.PlayMainSound();
         }
 
         private void OnCloseCallback() =>
             SelectClose();
 
-        private void OnErrorCallback(string description) =>
+        private void OnErrorCallback(string _) =>
             SelectClose();
     }
 }
