@@ -1,4 +1,6 @@
-﻿using Infrastructure.Factory.Pools;
+﻿using CanvasesLogic;
+using Infrastructure.Factory.Pools;
+using ObstaclesLogic;
 using PlayerLogic;
 using Services.Assets;
 using Services.Factory;

@@ -1,4 +1,5 @@
-﻿using Plugins.MonoCache;
+﻿using CanvasesLogic;
+using Plugins.MonoCache;
 using UnityEngine;
 
 namespace PlayerLogic

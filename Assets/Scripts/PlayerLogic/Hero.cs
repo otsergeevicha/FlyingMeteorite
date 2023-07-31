@@ -1,6 +1,8 @@
 ﻿using System;
 using Infrastructure.GameAI.StateMachine.States;
+using PlayerLogic.Move;
 using Plugins.MonoCache;
+using Services.Wallet;
 using UnityEngine;
 
 namespace PlayerLogic
@@ -34,15 +36,11 @@ namespace PlayerLogic
         public void ResetMovement() => 
             _movement.ResetHero();
 
-        public void Collision()
-        {
-            print("Collision");
+        public void Collision() => 
             Collided?.Invoke();
-        }
 
         public void Die()
         {
-            print("Died");
             _wallet.Apply(CurrentScore);
             Time.timeScale = 0;
             Died?.Invoke();

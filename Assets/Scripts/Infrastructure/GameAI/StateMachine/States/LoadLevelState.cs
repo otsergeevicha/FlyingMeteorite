@@ -1,12 +1,17 @@
 ﻿using CameraLogic;
+using CanvasesLogic;
 using Infrastructure.Factory;
 using Infrastructure.Factory.Pools;
 using Infrastructure.LoadingLogic;
 using Infrastructure.LoadingLogic.ScreenLoading;
+using ObstaclesLogic;
 using PlayerLogic;
 using Services.Factory;
+using Services.SaveLoad;
 using Services.ServiceLocator;
 using Services.StateMachine;
+using Services.Wallet;
+using SoundsLogic;
 using UnityEngine;
 
 namespace Infrastructure.GameAI.StateMachine.States

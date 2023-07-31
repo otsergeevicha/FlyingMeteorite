@@ -59,6 +59,17 @@
                     "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c95431b9-1d6c-4496-890d-0687d73ec829",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Phone",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -90,6 +101,11 @@
                     "isOR": false
                 }
             ]
+        },
+        {
+            "name": "Phone",
+            "bindingGroup": "Phone",
+            "devices": []
         }
     ]
 }

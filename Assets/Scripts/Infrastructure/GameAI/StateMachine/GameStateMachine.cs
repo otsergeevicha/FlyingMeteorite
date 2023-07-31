@@ -6,6 +6,7 @@ using Infrastructure.LoadingLogic.ScreenLoading;
 using Services.Factory;
 using Services.ServiceLocator;
 using Services.StateMachine;
+using Services.Wallet;
 
 namespace Infrastructure.GameAI.StateMachine
 {
