@@ -47,6 +47,9 @@ namespace CanvasesLogic.GameOver
             _soundOperator.UnLockGame();
             _obstaclesModule.ResetObstacles();
             _obstaclesModule.Launch();
+            
+            _hero.Active();
+            
             InActive();
 
             PlaySound();
@@ -66,6 +69,8 @@ namespace CanvasesLogic.GameOver
 
         public void OnActive()
         {
+            _hero.InActive();
+            
             if (_soundOperator.IsSoundStatus) 
                 _soundOperator.PlayGameOverSound();
             
@@ -82,7 +87,10 @@ namespace CanvasesLogic.GameOver
         {
             _windowHud.OnActive();
             _windowHud.Revival();
-            _hero.ResetMovement();            
+            _hero.ResetMovement();   
+            
+            _hero.Active();
+            
             Time.timeScale = 1;
             
             PlaySound();

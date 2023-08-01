@@ -45,6 +45,9 @@ namespace CanvasesLogic.Menu
             _windowHud.RenderScore();
             _obstaclesModule.ResetObstacles();
             _obstaclesModule.Launch();
+            
+            _hero.Active();
+            
             Time.timeScale = 1;
             InActive();
         }

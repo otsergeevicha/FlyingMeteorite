@@ -27,6 +27,12 @@ namespace PlayerLogic
 
         public int CurrentScore { get; private set; }
 
+        public void Active() => 
+            gameObject.SetActive(true);
+        
+        public void InActive() => 
+            gameObject.SetActive(false);
+        
         public void ResetPlayer()
         {
             CurrentScore = 0;

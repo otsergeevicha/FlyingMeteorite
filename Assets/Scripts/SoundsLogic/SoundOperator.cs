@@ -13,11 +13,11 @@ namespace SoundsLogic
 
         public bool IsSoundStatus { get; private set; } = true;
 
-        protected override void OnEnabled() => 
+        protected override void OnEnabled()
+        {
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
-
-        private void Start() => 
             PlayMainSound();
+        }
 
         protected override void OnDisabled() => 
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
@@ -25,12 +25,16 @@ namespace SoundsLogic
         public void Mute()
         {
             _audioListener.enabled = false;
+            _playSound.volume = 0;
+            _gameOverSound.volume = 0;
             IsSoundStatus = false;
         }
 
         public void UnMute()
         {
             _audioListener.enabled = true;
+            _playSound.volume = 1;
+            _gameOverSound.volume = 1;
             IsSoundStatus = true;
 
         }
@@ -67,15 +71,11 @@ namespace SoundsLogic
         
         private void OnInBackgroundChange(bool inBackground)
         {
-            switch (inBackground)
-            {
-                case true:
-                    OnOpenCallback();
-                    break;
-                case false:
-                    InterstitialAd.Show(OnOpenCallback, OnCloseCallback, OnErrorCallback);
-                    break;
-            }
+            if (inBackground)
+                OnOpenCallback();
+            
+            if (!inBackground) 
+                InterstitialAd.Show(OnOpenCallback, OnCloseCallback, OnErrorCallback);
         }
 
         private void OnOpenCallback()

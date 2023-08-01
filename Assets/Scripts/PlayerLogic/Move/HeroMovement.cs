@@ -19,7 +19,7 @@ namespace PlayerLogic.Move
         private Quaternion _maxRotation;
         private Quaternion _minRotation;
 
-        protected override void OnEnabled()
+        private void Awake()
         {
             _rigidbody = Get<Rigidbody2D>();
             _input = ServiceLocator.Container.Single<IInputService>();
@@ -55,13 +55,13 @@ namespace PlayerLogic.Move
 
         public void ResetHero()
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             transform.position = Vector2.zero;
-            transform.rotation = Quaternion.Euler(Vector2.zero);
-            _rigidbody.inertia = 0;
-            _rigidbody.rotation = 0;
-            _rigidbody.velocity = Vector2.zero;
-            Time.timeScale = 0;
+            transform.rotation = Quaternion.Euler(0,0,0);
+            // _rigidbody.inertia = 0;
+            // _rigidbody.rotation = 0;
+            // _rigidbody.velocity = Vector2.zero;
+            // Time.timeScale = 0;
             
             _speed = Constants.SpeedHero;
         }

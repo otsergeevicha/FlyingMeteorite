@@ -56,7 +56,7 @@ namespace Infrastructure.GameAI.StateMachine.States
             
             Pool pool = _gameFactory.CreatePool();
 
-            ObstaclesModule obstaclesModule = _gameFactory.CreateObstacleModule(); //new ObstaclesModule(hero, pool, camera);
+            ObstaclesModule obstaclesModule = _gameFactory.CreateObstacleModule();
             obstaclesModule.Inject(hero, pool, camera);
             windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), camera.GetComponent<SoundOperator>(), obstaclesModule);
 
