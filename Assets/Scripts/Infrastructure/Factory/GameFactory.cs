@@ -4,6 +4,7 @@ using ObstaclesLogic;
 using PlayerLogic;
 using Services.Assets;
 using Services.Factory;
+using SoundsLogic;
 using UnityEngine;
 
 namespace Infrastructure.Factory
@@ -32,5 +33,8 @@ namespace Infrastructure.Factory
 
         public ObstaclesModule CreateObstacleModule() => 
             _assetsProvider.InstantiateEntity(Constants.ObstaclesModulePath).GetComponent<ObstaclesModule>();
+
+        public SoundOperator CreateSoundOperator() => 
+            _assetsProvider.InstantiateEntity(Constants.SoundOperatorPath).GetComponent<SoundOperator>();
     }
 }

@@ -7,13 +7,14 @@ namespace SoundsLogic
 {
     public class SoundOperator : MonoCache
     {
-        [SerializeField] private AudioListener _audioListener;
         [SerializeField] private AudioSource _playSound;
         [SerializeField] private AudioSource _gameOverSound;
+        
+        private AudioListener _audioListener;
 
         public bool IsSoundStatus { get; private set; } = true;
 
-        protected override void OnEnabled()
+        private void Awake()
         {
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
             PlayMainSound();
@@ -21,6 +22,9 @@ namespace SoundsLogic
 
         protected override void OnDisabled() => 
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
+
+        public void Inject(Camera sceneCamera) => 
+            _audioListener = sceneCamera.GetComponent<AudioListener>();
 
         public void Mute()
         {

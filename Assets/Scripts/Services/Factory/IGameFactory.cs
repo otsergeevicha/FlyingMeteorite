@@ -4,6 +4,7 @@ using Infrastructure.Factory.Pools;
 using ObstaclesLogic;
 using PlayerLogic;
 using Services.ServiceLocator;
+using SoundsLogic;
 using UnityEngine;
 
 namespace Services.Factory
@@ -16,5 +17,6 @@ namespace Services.Factory
         Obstacle CreateObstacle();
         Pool CreatePool();
         ObstaclesModule CreateObstacleModule();
+        SoundOperator CreateSoundOperator();
     }
 }

@@ -43,8 +43,12 @@ namespace CanvasesLogic.GameOver
             _windowHud.OnActive();
             _windowHud.Revival();
             _windowHud.RenderScore();
+
+            Time.timeScale = 1;
             
-            _soundOperator.UnLockGame();
+            if (_soundOperator.IsSoundStatus) 
+                _soundOperator.UnMute();
+
             _obstaclesModule.ResetObstacles();
             _obstaclesModule.Launch();
             

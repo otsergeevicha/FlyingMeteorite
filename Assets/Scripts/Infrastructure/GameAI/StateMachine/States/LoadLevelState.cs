@@ -45,7 +45,10 @@ namespace Infrastructure.GameAI.StateMachine.States
 
         private void OnLoaded()
         {
+            SoundOperator soundOperator = _gameFactory.CreateSoundOperator();
             Camera camera = _gameFactory.CreateCamera();
+            soundOperator.Inject(camera);
+            
             Hero hero = _gameFactory.CreateHero();
 
             hero.Construct(_wallet);
@@ -58,7 +61,8 @@ namespace Infrastructure.GameAI.StateMachine.States
 
             ObstaclesModule obstaclesModule = _gameFactory.CreateObstacleModule();
             obstaclesModule.Inject(hero, pool, camera);
-            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), camera.GetComponent<SoundOperator>(), obstaclesModule);
+            
+            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), soundOperator, obstaclesModule);
 
             _stateMachine.Enter<GameLoopState>();
         }

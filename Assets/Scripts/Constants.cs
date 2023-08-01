@@ -11,6 +11,7 @@
     public const string ObstaclesModulePath = "Obstacles/ObstaclesModule";
     public const string CameraPath = "Camera/CameraTracker";
     public const string PoolPath = "Pools/Pool";
+    public const string SoundOperatorPath = "SoundFX/SoundOperator";
     
     //hero
     public const float SpeedHero = 5f;
