@@ -29,5 +29,8 @@ namespace Infrastructure.Factory
 
         public Pool CreatePool() => 
             _assetsProvider.InstantiateEntity(Constants.PoolPath).GetComponent<Pool>();
+
+        public ObstaclesModule CreateObstacleModule() => 
+            _assetsProvider.InstantiateEntity(Constants.ObstaclesModulePath).GetComponent<ObstaclesModule>();
     }
 }

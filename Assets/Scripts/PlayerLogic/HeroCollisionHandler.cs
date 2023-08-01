@@ -1,4 +1,5 @@
 ﻿using CanvasesLogic;
+using ObstaclesLogic;
 using Plugins.MonoCache;
 using UnityEngine;
 
@@ -17,7 +18,12 @@ namespace PlayerLogic
             if (collision.TryGetComponent(out ScoreZone _))
                 _hero.IncreaseScore();
             else
+            {
                 _hero.Collision();
+                
+                if (collision.TryGetComponent(out Obstacle obstacle)) 
+                    obstacle.InActive();
+            }
         }
     }
 }

@@ -15,5 +15,6 @@ namespace Services.Factory
         Camera CreateCamera();
         Obstacle CreateObstacle();
         Pool CreatePool();
+        ObstaclesModule CreateObstacleModule();
     }
 }

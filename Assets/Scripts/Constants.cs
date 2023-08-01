@@ -8,6 +8,7 @@
     public const string PlayerPath = "Player/Hero";
     public const string WindowRootPath = "Canvases/WindowRoot";
     public const string ObstaclePath = "Obstacles/Obstacle";
+    public const string ObstaclesModulePath = "Obstacles/ObstaclesModule";
     public const string CameraPath = "Camera/CameraTracker";
     public const string PoolPath = "Pools/Pool";
     
@@ -26,7 +27,7 @@
     public const float MinRandomPositionY = 4.5f;
     public const float MaxRandomPositionY = -3.5f;
     public const int CountSpawnObstacle = 8;
-    public const int SpawnInterval = 2000;
+    public const float SpawnInterval = 1.5f;
     
     //calculation formula
     public const int MultiplierValueLevel = 15;
