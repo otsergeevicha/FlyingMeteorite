@@ -2,7 +2,7 @@
 using CanvasesLogic.ContentsFrames;
 using CanvasesLogic.GameOver;
 using CanvasesLogic.Hud;
-using CanvasesLogic.Leaderboard;
+using CanvasesLogic.LeaderboardModule;
 using CanvasesLogic.Menu;
 using CanvasesLogic.Shop;
 using ObstaclesLogic;

@@ -1,6 +1,6 @@
 ﻿using CanvasesLogic.ContentsFrames;
 using CanvasesLogic.Hud;
-using CanvasesLogic.Leaderboard;
+using CanvasesLogic.LeaderboardModule;
 using CanvasesLogic.Shop;
 using ObstaclesLogic;
 using PlayerLogic;

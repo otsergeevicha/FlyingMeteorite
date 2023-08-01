@@ -1,5 +1,5 @@
 ﻿using Agava.YandexGames;
-using CanvasesLogic.Leaderboard;
+using CanvasesLogic.LeaderboardModule;
 using CanvasesLogic.Menu;
 using Plugins.MonoCache;
 

@@ -1,4 +1,6 @@
-﻿using Plugins.MonoCache;
+﻿using Agava.YandexGames;
+using Lean.Localization;
+using Plugins.MonoCache;
 
 namespace Infrastructure.LoadingLogic.LanguageLogic
 {
@@ -14,7 +16,7 @@ namespace Infrastructure.LoadingLogic.LanguageLogic
 
         private void SetLanguage()
         {
-#if !UNITY_WEBGL || !UNITY_EDITOR
+ #if !UNITY_WEBGL || !UNITY_EDITOR
             switch (YandexGamesSdk.Environment.i18n.lang)
             {
                 case "en":
@@ -27,7 +29,7 @@ namespace Infrastructure.LoadingLogic.LanguageLogic
                     LeanLocalization.SetCurrentLanguageAll(EnglishLanguage);
                     break;
             }
-#endif
+ #endif
         }
     }
 }

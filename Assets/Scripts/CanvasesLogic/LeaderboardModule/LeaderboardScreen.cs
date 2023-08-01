@@ -1,11 +1,12 @@
-﻿using CanvasesLogic.Authorization;
+﻿using Agava.YandexGames;
+using CanvasesLogic.Authorization;
 using CanvasesLogic.ContentsFrames;
 using CanvasesLogic.Menu;
 using Plugins.MonoCache;
 using Services.SaveLoad;
 using UnityEngine;
 
-namespace CanvasesLogic.Leaderboard
+namespace CanvasesLogic.LeaderboardModule
 {
     public class LeaderboardScreen : MonoCache
     {
