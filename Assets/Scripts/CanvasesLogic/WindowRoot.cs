@@ -26,7 +26,7 @@ namespace CanvasesLogic
         private ShopScreen _shopScreen;
         private ViewMainCharacter _viewMainCharacter;
 
-        public void Construct(Hero hero, IWallet wallet, ISave save, SoundOperator soundOperator,
+        public void Construct(Hero hero, ISave save, SoundOperator soundOperator,
             ObstaclesModule obstaclesModule)
         {
             _windowHud = ChildrenGet<WindowHud>();
@@ -38,7 +38,7 @@ namespace CanvasesLogic
             _viewMainCharacter = ChildrenGet<ViewMainCharacter>();
             
             _windowHud.Inject(hero);
-            _shopScreen.Inject(wallet, hero, save, _menuScreen);
+            _shopScreen.Inject(hero, save, _menuScreen);
             _gameOverScreen.Inject(hero, _windowHud, _menuScreen, soundOperator, obstaclesModule);
             _viewMainCharacter.Inject(_shopScreen);
             _menuScreen.Inject(_windowHud, hero, _shopScreen, _leaderboardScreen, soundOperator, _viewMainCharacter, obstaclesModule);
@@ -49,6 +49,9 @@ namespace CanvasesLogic
 
             Time.timeScale = 0;
             FirstConfigWindows();
+            
+            soundOperator.PlayMainSound();
+            
         }
 
         private void FirstConfigWindows()

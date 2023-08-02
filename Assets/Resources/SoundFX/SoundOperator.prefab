@@ -265,6 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141227848179048688}
+  - component: {fileID: 334043302416347116}
   - component: {fileID: 9129564208042300165}
   m_Layer: 0
   m_Name: SoundOperator
@@ -290,6 +291,14 @@ Transform:
   - {fileID: 5220807742697943774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &334043302416347116
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4048074251441049709}
+  m_Enabled: 1
 --- !u!114 &9129564208042300165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff90c72ea1445e8a8e2c396c90000f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioListener: {fileID: 0}
   _playSound: {fileID: 8835058546522486451}
   _gameOverSound: {fileID: 5492566343714310527}
+  _audioListener: {fileID: 334043302416347116}

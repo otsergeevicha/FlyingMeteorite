@@ -39,7 +39,7 @@
     //Leaderboard
     public const string Leaderboard = "Leaderboard";
     public const string Anonymous = "Anonymous";
-    public const int TopPlayersCount = 5;
+    public const int TopPlayersCount = 15;
     public const int CompletingPlayersCount = 1;
     
     //curtain

@@ -15,19 +15,17 @@ namespace CanvasesLogic.Shop
         [SerializeField] private ContentView _content;
         [SerializeField] private Transform _container;
 
-        private IWallet _wallet;
         private Hero _hero;
 
         private ContentView[] _contentViews;
         private ISave _save;
         private MenuScreen _menuScreen;
 
-        public void Inject(IWallet wallet, Hero hero, ISave save, MenuScreen menuScreen)
+        public void Inject(Hero hero, ISave save, MenuScreen menuScreen)
         {
             _menuScreen = menuScreen;
             _save = save;
             _hero = hero;
-            _wallet = wallet;
             
             ContentView contentView;
             

@@ -33,7 +33,6 @@ namespace PlayerLogic.Move
             _maxRotation = Quaternion.Euler(0, 0, Constants.MaxRotationZ);
             _minRotation = Quaternion.Euler(0, 0, Constants.MinRotationZ);
             
-            _input.OnControls();
             _input.Tap(OnUp);
         }
 
@@ -55,13 +54,10 @@ namespace PlayerLogic.Move
 
         public void ResetHero()
         {
-            //Time.timeScale = 1;
             transform.position = Vector2.zero;
             transform.rotation = Quaternion.Euler(0,0,0);
-            // _rigidbody.inertia = 0;
-            // _rigidbody.rotation = 0;
-            // _rigidbody.velocity = Vector2.zero;
-            // Time.timeScale = 0;
+            _rigidbody.inertia = 0;
+            _rigidbody.rotation = 0;
             
             _speed = Constants.SpeedHero;
         }
@@ -77,5 +73,8 @@ namespace PlayerLogic.Move
             _progressIndex++;
             _speed++;
         }
+
+        public IInputService GetInputService() => 
+            _input;
     }
 }

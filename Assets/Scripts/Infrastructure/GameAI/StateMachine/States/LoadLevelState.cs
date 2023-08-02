@@ -47,7 +47,6 @@ namespace Infrastructure.GameAI.StateMachine.States
         {
             SoundOperator soundOperator = _gameFactory.CreateSoundOperator();
             Camera camera = _gameFactory.CreateCamera();
-            soundOperator.Inject(camera);
             
             Hero hero = _gameFactory.CreateHero();
 
@@ -62,7 +61,7 @@ namespace Infrastructure.GameAI.StateMachine.States
             ObstaclesModule obstaclesModule = _gameFactory.CreateObstacleModule();
             obstaclesModule.Inject(hero, pool, camera);
             
-            windowRoot.Construct(hero, _wallet, ServiceLocator.Container.Single<ISave>(), soundOperator, obstaclesModule);
+            windowRoot.Construct(hero, ServiceLocator.Container.Single<ISave>(), soundOperator, obstaclesModule);
 
             _stateMachine.Enter<GameLoopState>();
         }

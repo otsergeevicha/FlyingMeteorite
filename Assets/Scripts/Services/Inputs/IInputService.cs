@@ -7,5 +7,6 @@ namespace Services.Inputs
     {
         void Tap(Action onUp);
         void OnControls();
+        void OffControls();
     }
 }

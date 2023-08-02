@@ -12,5 +12,8 @@ namespace Services.Inputs
 
         public void OnControls() =>
             _input.Player.Enable();
+
+        public void OffControls() =>
+            _input.Player.Disable();
     }
 }

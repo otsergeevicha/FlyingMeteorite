@@ -1,31 +1,23 @@
 ﻿using Agava.WebUtility;
 using Agava.YandexGames;
-using Plugins.MonoCache;
 using UnityEngine;
 
 namespace SoundsLogic
 {
-    public class SoundOperator : MonoCache
+    public class SoundOperator : MonoBehaviour
     {
         [SerializeField] private AudioSource _playSound;
         [SerializeField] private AudioSource _gameOverSound;
-        
-        private AudioListener _audioListener;
+        [SerializeField] private AudioListener _audioListener;
 
         public bool IsSoundStatus { get; private set; } = true;
 
-        private void Awake()
-        {
+        private void OnEnable() => 
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
-            PlayMainSound();
-        }
 
-        protected override void OnDisabled() => 
+        private void OnDisable() => 
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
-
-        public void Inject(Camera sceneCamera) => 
-            _audioListener = sceneCamera.GetComponent<AudioListener>();
-
+        
         public void Mute()
         {
             _audioListener.enabled = false;
@@ -40,7 +32,6 @@ namespace SoundsLogic
             _playSound.volume = 1;
             _gameOverSound.volume = 1;
             IsSoundStatus = true;
-
         }
 
         public void LockGame()

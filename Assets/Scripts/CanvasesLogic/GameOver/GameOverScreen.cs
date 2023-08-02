@@ -30,31 +30,55 @@ namespace CanvasesLogic.GameOver
         public void SelectContinue()
         {
 #if !UNITY_WEBGL || !UNITY_EDITOR
+
             VideoAd.Show(OnOpenCallback, OnRewardedCallback, OnCloseCallback, OnErrorCallback);
-            return;
 #endif
-            OnRewardedCallback();
+            Plug();
+        }
+
+        private void Plug()
+        {
+            _windowHud.OnActive();
+            _windowHud.Revival();
+            _hero.ResetMovement();
+
+            Time.timeScale = 1;
+            
+            InActive();
+            _hero.Active();
+            
+            PlaySound();
+        }
+        
+        private void OnRewardedCallback()
+        {
+            _windowHud.OnActive();
+            _windowHud.Revival();
+            _hero.ResetMovement();
+
+            Time.timeScale = 1;
+            
+            InActive();
+            _hero.Active();
+            
+            PlaySound();
         }
 
         public void SelectRestart()
         {
-            _hero.ResetPlayer();
-            
+
             _windowHud.OnActive();
             _windowHud.Revival();
             _windowHud.RenderScore();
+            _hero.ResetPlayer();
 
             Time.timeScale = 1;
-            
-            if (_soundOperator.IsSoundStatus) 
-                _soundOperator.UnMute();
 
             _obstaclesModule.ResetObstacles();
             _obstaclesModule.Launch();
-            
-            _hero.Active();
-            
+
             InActive();
+            _hero.Active();
 
             PlaySound();
         }
@@ -63,7 +87,7 @@ namespace CanvasesLogic.GameOver
         {
             _windowHud.InActive();
             _menuScreen.OnActive();
-            
+
             Time.timeScale = 0;
             _hero.ResetPlayer();
             InActive();
@@ -74,10 +98,10 @@ namespace CanvasesLogic.GameOver
         public void OnActive()
         {
             _hero.InActive();
-            
-            if (_soundOperator.IsSoundStatus) 
+
+            if (_soundOperator.IsSoundStatus)
                 _soundOperator.PlayGameOverSound();
-            
+
             gameObject.SetActive(true);
         }
 
@@ -87,31 +111,16 @@ namespace CanvasesLogic.GameOver
         private void OnOpenCallback() =>
             _soundOperator.LockGame();
 
-        private void OnRewardedCallback()
-        {
-            _windowHud.OnActive();
-            _windowHud.Revival();
-            _hero.ResetMovement();   
-            
-            _hero.Active();
-            
-            Time.timeScale = 1;
-            
-            PlaySound();
-            
-            InActive();
-        }
+        private void OnCloseCallback() =>
+            SelectClose();
+
+        private void OnErrorCallback(string _) =>
+            SelectClose();
 
         private void PlaySound()
         {
             if (_soundOperator.IsSoundStatus)
                 _soundOperator.PlayMainSound();
         }
-
-        private void OnCloseCallback() =>
-            SelectClose();
-
-        private void OnErrorCallback(string _) =>
-            SelectClose();
     }
 }

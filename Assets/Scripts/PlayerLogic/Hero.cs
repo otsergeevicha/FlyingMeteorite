@@ -2,8 +2,10 @@
 using Infrastructure.GameAI.StateMachine.States;
 using PlayerLogic.Move;
 using Plugins.MonoCache;
+using Services.Inputs;
 using Services.Wallet;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace PlayerLogic
 {
@@ -12,37 +14,48 @@ namespace PlayerLogic
     public class Hero : MonoCache
     {
         [SerializeField] private SpriteRenderer _iconCharacter;
-        
+
         private HeroMovement _movement;
         private IWallet _wallet;
+        private IInputService _input;
         public event Action ScoreChanged;
         public event Action Collided;
         public event Action Died;
 
-        private void Start() => 
+        private void Start()
+        {
             _movement = Get<HeroMovement>();
+            _input = _movement.GetInputService();
+            Active();
+        }
 
-        public void Construct(IWallet wallet) => 
+        public void Construct(IWallet wallet) =>
             _wallet = wallet;
 
         public int CurrentScore { get; private set; }
 
-        public void Active() => 
+        public void Active()
+        {
+            _input.OnControls();
             gameObject.SetActive(true);
-        
-        public void InActive() => 
+        }
+
+        public void InActive()
+        {
+            _input.OffControls();
             gameObject.SetActive(false);
-        
+        }
+
         public void ResetPlayer()
         {
             CurrentScore = 0;
             _movement.ResetHero();
         }
 
-        public void ResetMovement() => 
+        public void ResetMovement() =>
             _movement.ResetHero();
 
-        public void Collision() => 
+        public void Collision() =>
             Collided?.Invoke();
 
         public void Die()
@@ -59,7 +72,7 @@ namespace PlayerLogic
             ScoreChanged?.Invoke();
         }
 
-        public void ChangeHeroIcon(Sprite character) => 
+        public void ChangeHeroIcon(Sprite character) =>
             _iconCharacter.sprite = character;
     }
 }
