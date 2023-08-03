@@ -27,49 +27,11 @@ namespace CanvasesLogic.GameOver
             _windowHud = windowHud;
         }
 
-        public void SelectContinue()
-        {
-#if !UNITY_WEBGL || !UNITY_EDITOR
-
-            VideoAd.Show(OnOpenCallback, OnRewardedCallback, OnCloseCallback, OnErrorCallback);
-#endif
-            Plug();
-        }
-
-        private void Plug()
-        {
-            _windowHud.OnActive();
-            _windowHud.Revival();
-            _hero.ResetMovement();
-
-            Time.timeScale = 1;
-            
-            InActive();
-            _hero.Active();
-            
-            PlaySound();
-        }
-        
-        private void OnRewardedCallback()
-        {
-            _windowHud.OnActive();
-            _windowHud.Revival();
-            _hero.ResetMovement();
-
-            Time.timeScale = 1;
-            
-            InActive();
-            _hero.Active();
-            
-            PlaySound();
-        }
-
         public void SelectRestart()
         {
-
             _windowHud.OnActive();
             _windowHud.Revival();
-            _windowHud.RenderScore();
+            _windowHud.ResetScore();
             _hero.ResetPlayer();
 
             Time.timeScale = 1;
@@ -98,11 +60,13 @@ namespace CanvasesLogic.GameOver
         public void OnActive()
         {
             _hero.InActive();
+            
+#if !UNITY_WEBGL || !UNITY_EDITOR
+            
+            InterstitialAd.Show(OnOpenCallback, OnCloseCallback, OnErrorCallback);
+#endif
 
-            if (_soundOperator.IsSoundStatus)
-                _soundOperator.PlayGameOverSound();
-
-            gameObject.SetActive(true);
+            ActiveState();
         }
 
         public void InActive() =>
@@ -111,16 +75,24 @@ namespace CanvasesLogic.GameOver
         private void OnOpenCallback() =>
             _soundOperator.LockGame();
 
-        private void OnCloseCallback() =>
-            SelectClose();
+        private void OnCloseCallback(bool _) => 
+            ActiveState();
 
         private void OnErrorCallback(string _) =>
-            SelectClose();
+            ActiveState();
 
         private void PlaySound()
         {
             if (_soundOperator.IsSoundStatus)
                 _soundOperator.PlayMainSound();
+        }
+
+        private void ActiveState()
+        {
+            if (_soundOperator.IsSoundStatus)
+                _soundOperator.PlayGameOverSound();
+
+            gameObject.SetActive(true);
         }
     }
 }
