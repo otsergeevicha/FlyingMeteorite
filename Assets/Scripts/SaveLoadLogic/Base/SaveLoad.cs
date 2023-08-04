@@ -1,4 +1,5 @@
-﻿using Services.SaveLoad;
+﻿using Agava.YandexGames;
+using Services.SaveLoad;
 using UnityEngine;
 
 namespace SaveLoadLogic.Base
@@ -6,7 +7,7 @@ namespace SaveLoadLogic.Base
     public class SaveLoad : ISave
     {
         private readonly Progress _progress;
-        
+
         public SaveLoad()
         {
             _progress = PlayerPrefs.HasKey(Constants.Progress)
@@ -14,12 +15,25 @@ namespace SaveLoadLogic.Base
                 : new Progress();
         }
 
-        public Progress AccessProgress() => 
+        public Progress AccessProgress() =>
             _progress;
 
         public void Save()
         {
-            PlayerPrefs.SetString(Constants.Progress, JsonUtility.ToJson(_progress));
+            string data = JsonUtility.ToJson(_progress);
+
+#if !UNITY_WEBGL || !UNITY_EDITOR
+
+            PlayerAccount.SetCloudSaveData(data);
+            RecordToPrefs(data);
+
+#endif
+            RecordToPrefs(data);
+        }
+
+        private void RecordToPrefs(string data)
+        {
+            PlayerPrefs.SetString(Constants.Progress, data);
             PlayerPrefs.Save();
         }
     }

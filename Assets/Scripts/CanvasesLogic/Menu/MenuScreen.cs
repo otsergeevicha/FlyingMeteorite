@@ -24,7 +24,7 @@ namespace CanvasesLogic.Menu
         private SoundOperator _soundOperator;
         private ViewMainCharacter _viewMainCharacter;
         private ObstaclesModule _obstaclesModule;
-
+        
         public void Inject(WindowHud windowHud, Hero hero, ShopScreen shopScreen, LeaderboardScreen leaderboardScreen,
             SoundOperator soundOperator, ViewMainCharacter viewMainCharacter, ObstaclesModule obstaclesModule)
         {

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using Plugins.MonoCache;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace CanvasesLogic.Hud
     {
         [SerializeField] private TMP_Text _levelNumber;
         [SerializeField] private CanvasGroup _canvasGroup;
-
+        
         public void OnActive(int currentLevel)
         {
             _levelNumber.text = currentLevel.ToString();

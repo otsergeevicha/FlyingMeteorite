@@ -8,7 +8,6 @@ namespace SoundsLogic
     {
         [SerializeField] private AudioSource _playSound;
         [SerializeField] private AudioSource _gameOverSound;
-        [SerializeField] private AudioListener _audioListener;
 
         public bool IsSoundStatus { get; private set; } = true;
 
@@ -20,30 +19,32 @@ namespace SoundsLogic
         
         public void Mute()
         {
-            _audioListener.enabled = false;
             _playSound.volume = 0;
             _gameOverSound.volume = 0;
+            
             IsSoundStatus = false;
         }
 
         public void UnMute()
         {
-            _audioListener.enabled = true;
             _playSound.volume = 1;
             _gameOverSound.volume = 1;
+            
             IsSoundStatus = true;
         }
 
         public void LockGame()
         {
             Time.timeScale = 0;
-            Mute();
+            _playSound.volume = 0;
+            _gameOverSound.volume = 0;
         }
         
         public void UnLockGame()
         {
             Time.timeScale = 1;
-            UnMute();
+            _playSound.volume = 1;
+            _gameOverSound.volume = 1;
         }
 
         public void PlayMainSound()
@@ -75,14 +76,15 @@ namespace SoundsLogic
 
         private void OnOpenCallback()
         {
-            Mute();
+            _playSound.volume = 0;
+            _gameOverSound.volume = 0;
             Time.timeScale = 0;
         }
 
-        private void OnCloseCallback(bool obj) => 
+        private void OnCloseCallback(bool _) => 
             UnLockGame();
 
-        private void OnErrorCallback(string obj) => 
+        private void OnErrorCallback(string _) => 
             UnLockGame();
     }
 }
