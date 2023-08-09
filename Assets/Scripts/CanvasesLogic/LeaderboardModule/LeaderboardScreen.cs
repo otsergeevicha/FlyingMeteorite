@@ -34,14 +34,16 @@ namespace CanvasesLogic.LeaderboardModule
         public void OnActive()
         {
 #if !UNITY_WEBGL || !UNITY_EDITOR
-
             if (PlayerAccount.IsAuthorized)
             {
                 Leaderboard.SetScore(Constants.Leaderboard, _save.AccessProgress().DataWallet.Read());
                 GetLeaderboardEntries();
+                return;
             }
-            else if (!PlayerAccount.IsAuthorized)
+
+            if (!PlayerAccount.IsAuthorized)
                 _authorizationScreen.OnActive();
+
 #endif
             gameObject.SetActive(true);
         }
@@ -51,7 +53,7 @@ namespace CanvasesLogic.LeaderboardModule
             _menuScreen.OnActive();
             InActive();
         }
-        
+
         public void GetLeaderboardEntries()
         {
             Agava.YandexGames.Leaderboard.GetEntries(Constants.Leaderboard, (result) =>

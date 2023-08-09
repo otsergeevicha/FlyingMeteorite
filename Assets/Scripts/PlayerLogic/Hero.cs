@@ -36,8 +36,8 @@ namespace PlayerLogic
 
         public void Active()
         {
-            _input.OnControls();
             gameObject.SetActive(true);
+            _input.OnControls();
         }
 
         public void InActive()

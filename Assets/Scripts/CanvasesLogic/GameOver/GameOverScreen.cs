@@ -63,6 +63,7 @@ namespace CanvasesLogic.GameOver
             
 #if !UNITY_WEBGL || !UNITY_EDITOR
             
+            _soundOperator.LockGame();
             InterstitialAd.Show(OnOpenCallback, OnCloseCallback, OnErrorCallback);
 #endif
 

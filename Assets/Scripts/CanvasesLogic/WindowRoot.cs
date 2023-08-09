@@ -51,10 +51,9 @@ namespace CanvasesLogic
             FirstConfigWindows();
             
             soundOperator.PlayMainSound();
-            
         }
 
-        private void FirstConfigWindows()
+        public void FirstConfigWindows()
         {
             _menuScreen.OnActive();
 

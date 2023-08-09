@@ -1,5 +1,6 @@
 ﻿using Agava.WebUtility;
 using Agava.YandexGames;
+using CanvasesLogic;
 using UnityEngine;
 
 namespace SoundsLogic
@@ -7,7 +8,10 @@ namespace SoundsLogic
     public class SoundOperator : MonoBehaviour
     {
         [SerializeField] private AudioSource _playSound;
+
         [SerializeField] private AudioSource _gameOverSound;
+
+        private WindowRoot _windowRoot;
 
         public bool IsSoundStatus { get; private set; } = true;
 
@@ -16,7 +20,10 @@ namespace SoundsLogic
 
         private void OnDisable() => 
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
-        
+
+        public void Inject(WindowRoot windowRoot) => 
+            _windowRoot = windowRoot;
+
         public void Mute()
         {
             _playSound.volume = 0;
@@ -39,7 +46,7 @@ namespace SoundsLogic
             _playSound.volume = 0;
             _gameOverSound.volume = 0;
         }
-        
+
         public void UnLockGame()
         {
             Time.timeScale = 1;
@@ -64,14 +71,17 @@ namespace SoundsLogic
             _gameOverSound.Play();
             _gameOverSound.volume = 1;
         }
-        
+
         private void OnInBackgroundChange(bool inBackground)
         {
             if (inBackground)
                 OnOpenCallback();
-            
-            if (!inBackground) 
+
+            if (!inBackground)
+            {
+                OnOpenCallback();
                 InterstitialAd.Show(OnOpenCallback, OnCloseCallback, OnErrorCallback);
+            }
         }
 
         private void OnOpenCallback()
@@ -82,9 +92,16 @@ namespace SoundsLogic
         }
 
         private void OnCloseCallback(bool _) => 
-            UnLockGame();
+            AfterSeeAds();
 
         private void OnErrorCallback(string _) => 
-            UnLockGame();
+            AfterSeeAds();
+
+        private void AfterSeeAds()
+        {
+            _windowRoot.FirstConfigWindows();
+            _playSound.volume = 1;
+            _gameOverSound.volume = 1;
+        }
     }
 }

@@ -22,13 +22,12 @@ namespace SaveLoadLogic.Base
         {
             string data = JsonUtility.ToJson(_progress);
 
+            RecordToPrefs(data);
+
 #if !UNITY_WEBGL || !UNITY_EDITOR
-
-            PlayerAccount.SetCloudSaveData(data);
-            RecordToPrefs(data);
-
+            if (PlayerAccount.IsAuthorized) 
+                PlayerAccount.SetCloudSaveData(data);
 #endif
-            RecordToPrefs(data);
         }
 
         private void RecordToPrefs(string data)

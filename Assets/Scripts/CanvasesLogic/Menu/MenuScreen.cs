@@ -35,6 +35,8 @@ namespace CanvasesLogic.Menu
             _shopScreen = shopScreen;
             _hero = hero;
             _windowHud = windowHud;
+
+            Time.timeScale = 0;
         }
 
         public void SelectPlay()

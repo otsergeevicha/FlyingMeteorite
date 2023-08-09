@@ -62,6 +62,7 @@ namespace Infrastructure.GameAI.StateMachine.States
             obstaclesModule.Inject(hero, pool, camera);
             
             windowRoot.Construct(hero, ServiceLocator.Container.Single<ISave>(), soundOperator, obstaclesModule);
+            soundOperator.Inject(windowRoot);
 
             _stateMachine.Enter<GameLoopState>();
         }
