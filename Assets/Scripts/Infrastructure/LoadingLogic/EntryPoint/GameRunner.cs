@@ -9,15 +9,8 @@ namespace Infrastructure.LoadingLogic.EntryPoint
     {
         [SerializeField] private GameBootstrapper _gameBootstrapper;
 
-        private void Awake()
-        {
-            var bootstrapper = Find<GameBootstrapper>();
-
-            if (bootstrapper != null)
-                return;
-
+        private void Awake() => 
             StartCoroutine(LaunchSDK());
-        }
 
         private IEnumerator LaunchSDK()
         {
