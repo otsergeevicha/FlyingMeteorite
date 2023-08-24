@@ -1,5 +1,4 @@
-﻿using Agava.YandexGames;
-using CanvasesLogic.Hud;
+﻿using CanvasesLogic.Hud;
 using CanvasesLogic.Menu;
 using ObstaclesLogic;
 using PlayerLogic;
@@ -61,39 +60,19 @@ namespace CanvasesLogic.GameOver
         {
             _hero.InActive();
             
-#if !UNITY_WEBGL || !UNITY_EDITOR
-            
-            _soundOperator.LockGame();
-            InterstitialAd.Show(OnOpenCallback, OnCloseCallback, OnErrorCallback);
-#endif
+            if (_soundOperator.IsSoundStatus)
+                _soundOperator.PlayGameOverSound();
 
-            ActiveState();
+            gameObject.SetActive(true);
         }
 
         public void InActive() =>
             gameObject.SetActive(false);
 
-        private void OnOpenCallback() =>
-            _soundOperator.LockGame();
-
-        private void OnCloseCallback(bool _) => 
-            ActiveState();
-
-        private void OnErrorCallback(string _) =>
-            ActiveState();
-
         private void PlaySound()
         {
             if (_soundOperator.IsSoundStatus)
                 _soundOperator.PlayMainSound();
-        }
-
-        private void ActiveState()
-        {
-            if (_soundOperator.IsSoundStatus)
-                _soundOperator.PlayGameOverSound();
-
-            gameObject.SetActive(true);
         }
     }
 }
