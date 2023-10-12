@@ -1,4 +1,5 @@
-﻿using CameraLogic;
+﻿using Agava.YandexGames;
+using CameraLogic;
 using CanvasesLogic;
 using Infrastructure.Factory;
 using Infrastructure.Factory.Pools;
@@ -45,6 +46,8 @@ namespace Infrastructure.GameAI.StateMachine.States
 
         private void OnLoaded()
         {
+            YandexGamesSdk.GameReady();
+            
             SoundOperator soundOperator = _gameFactory.CreateSoundOperator();
             Camera camera = _gameFactory.CreateCamera();
             

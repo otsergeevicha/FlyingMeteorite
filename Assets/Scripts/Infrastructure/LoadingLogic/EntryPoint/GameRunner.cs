@@ -2,6 +2,7 @@
 using Agava.YandexGames;
 using Plugins.MonoCache;
 using UnityEngine;
+using PlayerPrefs = UnityEngine.PlayerPrefs;
 
 namespace Infrastructure.LoadingLogic.EntryPoint
 {
